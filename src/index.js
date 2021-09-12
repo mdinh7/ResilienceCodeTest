@@ -27,7 +27,6 @@ document.getElementById('getID').addEventListener('click', async function(){
     vesselStatsUpdate = true;
     //Initiate Vessel Stats Interval Here
     updateCheck()
-
     console.log(vesselID)
 });
 
@@ -40,7 +39,6 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
     let IVState = await inputValve.getStatus(vesselID)
     let newState;
     console.log('IV BEFORE:' + IVState)
-    console.log(IVState)
     if(IVState == 'closed'){
         newState = 'open'
         //Initiate timer here
@@ -50,11 +48,8 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
         // End Vessel stats here due to process end
         vesselStatsUpdate = false;
     }
-
     IVState = await inputValve.changeStatus(vesselID, newState)
-
     console.log('IV AFTER:' + IVState)
-    console.log(IVState)
 });
 
 
@@ -64,7 +59,6 @@ document.getElementById('outputValveControl').addEventListener('click', async fu
     let OVState = await outputValve.getStatus(vesselID)
     let newState;
     console.log('OV BEFORE:' + OVState)
-    console.log(OVState)
     if(OVState == 'closed'){
         newState = 'open'
         // End timer here
@@ -73,9 +67,6 @@ document.getElementById('outputValveControl').addEventListener('click', async fu
     }else{
         newState = 'closed'
     }
-
     OVState = await outputValve.changeStatus(vesselID, newState)
-
     console.log('OV AFTER:' + OVState)
-    console.log(OVState)
 });

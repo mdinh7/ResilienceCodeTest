@@ -39,16 +39,13 @@ class Vessel{
             mode: 'cors',
             cache: 'default',
         });
+        await fetch(vesselStatsRequest)
+        .then(response => response.json())
+        .then(data => {
+            vesselStats = data
+        });
 
-            await fetch(vesselStatsRequest)
-            .then(response => response.json())
-            .then(data => {
-                vesselStats = data
-            });
-
-            console.log(vesselStats)
-            return vesselStats
-
+        return vesselStats
     }
 
     // update UI table with most up to date vessel data
