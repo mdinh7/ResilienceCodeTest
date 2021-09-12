@@ -54,14 +54,14 @@ class Vessel{
     }
 
     // stats warning
-    vesselStatsWarning(data){
+    statsWarning(data){
         //Within 10% of fill level warning
         //Within 20kPa of pressure
         //Within 10 degrees C
     }
 
     // validate batch success
-    vesselValidate(data){
+    validate(data){
         //Over 72%
         //Pressure is equal to or greater than 200kPa
         //Temperature is over 81 degrees C
@@ -69,7 +69,7 @@ class Vessel{
     }
 
     // batch record
-    batchRecord(data){
+    batchRecord(data, validation, timeSet){
         //If vesselValidate passsed
         //Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
     }
