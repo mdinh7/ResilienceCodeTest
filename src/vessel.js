@@ -16,13 +16,13 @@ class Vessel{
             cache: 'default',
         });
 
-        vesselID = await fetch(vesselRequest)
+        await fetch(vesselRequest)
         .then(response => response.json())
         .then(data => {
-            return data
+           vesselID = data.id
         })
-
-        return vesselID.id
+        
+        return vesselID
     }   
 
     // function to fetch vessel state
@@ -40,10 +40,10 @@ class Vessel{
             cache: 'default',
         });
 
-            vesselStats = await fetch(vesselStatsRequest)
+            await fetch(vesselStatsRequest)
             .then(response => response.json())
             .then(data => {
-                return data
+                vesselStats = data
             });
 
             return vesselStats
@@ -69,17 +69,37 @@ class Vessel{
             cache: 'default',
         });
 
-            vesselIVState = await fetch(vesselIVRequest)
+            await fetch(vesselIVRequest)
             .then(response => response.json())
             .then(data => {
-                return data
+                vesselIVState = data.state
             });
 
-            return vesselIVState.state
+            return vesselIVState
     }
 
     // function to change state of input valve
-    putInputValve(vesselID){
+    async putInputValve(vesselID, updatedState){
+        const testHeaders = new Headers();
+        testHeaders.append('Content-Type', 'application/json');
+        testHeaders.append('Accept', 'application/json');
+
+        const vesselIVPutRequest = new Request('http://mini-mes.resilience.com/bioreactor/' + vesselID + '/input-valve', {
+            method: 'PUT',
+            headers: testHeaders,
+            mode: 'cors',
+            cache: 'default',
+            body: JSON.stringify({'state': updatedState})
+        });
+
+        await fetch(vesselIVPutRequest)
+        .then(response => {
+            if(response.ok){
+                return response
+            }else{
+                console.log('ERROR IV PUT REQUEST')
+            }
+        })
 
     }
 
@@ -97,19 +117,38 @@ class Vessel{
             cache: 'default',
         });
 
-            vesselOVState = await fetch(vesselOVRequest)
+            await fetch(vesselOVRequest)
             .then(response => response.json())
             .then(data => {
-                return data
+                vesselOVState = data.state
             });
 
-            return vesselOVState.state
+            return vesselOVState
 
     }
 
     // function to change state of output valve
-    putOutputValve(vesselID){
+    async putOutputValve(vesselID, updatedState){
+        const testHeaders = new Headers();
+        testHeaders.append('Content-Type', 'application/json');
+        testHeaders.append('Accept', 'application/json');
 
+        const vesselOVPutRequest = new Request('http://mini-mes.resilience.com/bioreactor/' + vesselID + '/output-valve', {
+            method: 'PUT',
+            headers: testHeaders,
+            mode: 'cors',
+            cache: 'default',
+            body: JSON.stringify({'state': updatedState})
+        });
+
+        await fetch(vesselOVPutRequest)
+        .then(response => {
+            if(response.ok){
+                return response
+            }else{
+                console.log('ERROR IV PUT REQUEST')
+            }
+        })
     }
 
 }
