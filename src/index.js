@@ -1,6 +1,11 @@
+import InputValve from './inputValve.js';
+import OutputValve from './outputValve.js';
 import Vessel from './vessel.js'
-let vessel = new Vessel
+
+let inputValve;
+let outputValve;
 let vesselID;
+let vessel = new Vessel
 
 
 
@@ -13,24 +18,28 @@ document.getElementById('getID').addEventListener('click', async function(){
 });
 
 document.getElementById('inputValveControl').addEventListener('click', async function(){
-    let IVState = await vessel.getInputValve(vesselID)
+    inputValve = new InputValve(vesselID)
+    console.log("IV Vessel ID:" + inputValve.vesselID)
+    let IVState = await inputValve.getStatus(vesselID)
     console.log('IV BEFORE:' + IVState)
     if(IVState = 'open'){
-        await vessel.putInputValve(vesselID, 'closed')
+        await inputValve.changeStatus(vesselID, 'closed')
     }else{
-        await vessel.putInputValve(vesselID, 'open')
+        await inputValve.changeStatus(vesselID, 'open')
     }
     console.log('IV AFTER:' + IVState)
 });
 
 
 document.getElementById('outputValveControl').addEventListener('click', async function(){
-    let OVState = await vessel.getOutputValve(vesselID)
+    outputValve = new OutputValve(vesselID)
+    console.log("OV Vessel ID:" + outputValve.vesselID)
+    let OVState = await outputValve.getStatus(vesselID)
     console.log('OV BEFORE:' + OVState)
     if(OVState = 'open'){
-        await vessel.putOutputValve(vesselID, 'closed')
+        await outputValve.changeStatus(vesselID, 'closed')
     }else{
-        await vessel.putOutputValve(vesselID, 'open')
+        await outputValve.changeStatus(vesselID, 'open')
     }
     console.log('OV AFTER:' + OVState)
 });
