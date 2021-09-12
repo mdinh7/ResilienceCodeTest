@@ -46,13 +46,35 @@ class Vessel{
                 vesselStats = data
             });
 
+            console.log(vesselStats)
             return vesselStats
 
     }
 
     // update UI table with most up to date vessel data
-    updateStatsUI(){
+    updateStatsUI(data){
 
+    }
+
+    // stats warning
+    vesselStatsWarning(data){
+        //Within 10% of fill level warning
+        //Within 20kPa of pressure
+        //Within 10 degrees C
+    }
+
+    // validate batch success
+    vesselValidate(data){
+        //Over 72%
+        //Pressure is equal to or greater than 200kPa
+        //Temperature is over 81 degrees C
+        //Returns what passed and what failed, as well as overall pass/fail
+    }
+
+    // batch record
+    batchRecord(data){
+        //If vesselValidate passsed
+        //Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
     }
 
 }
