@@ -10,7 +10,14 @@ let vesselStats = {"fill_level": "", "temp_low": "", "temp_high": "", "ph_low": 
 let vesselStatsUpdate = false;
 let vessel = new Vessel
 
-//Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
+function updateCheck(){
+    if(vesselStatsUpdate === true){
+        vessel.getVesselStats(vesselID)
+        window.setTimeout(updateCheck, 100)
+    }else{
+
+    }
+}
 
 // Initiate vessel/bioreactor and valves
 document.getElementById('getID').addEventListener('click', async function(){
@@ -19,27 +26,35 @@ document.getElementById('getID').addEventListener('click', async function(){
     outputValve = new OutputValve(vesselID)
     vesselStatsUpdate = true;
     //Initiate Vessel Stats Interval Here
-    while(vesselStatsUpdate = true){
-        setInterval(await vessel.getVesselStats(vesselID), 10000)
-    }
+    updateCheck()
 
     console.log(vesselID)
 });
+
+
+// Should only show valve control after intiating vessel
 
 //Input Valve Control
 document.getElementById('inputValveControl').addEventListener('click', async function(){
     console.log("IV Vessel ID:" + inputValve.vesselID)
     let IVState = await inputValve.getStatus(vesselID)
+    let newState;
     console.log('IV BEFORE:' + IVState)
-    if(IVState = 'open'){
-        await inputValve.changeStatus(vesselID, 'closed')
-        // End Vessel stats here due to process end
+    console.log(IVState)
+    if(IVState == 'closed'){
+        newState = 'open'
+        //Initiate timer here
         vesselStatsUpdate = false;
     }else{
-        await inputValve.changeStatus(vesselID, 'open')
-        //Initiate timer here
+        newState = 'closed'
+        // End Vessel stats here due to process end
+        vesselStatsUpdate = false;
     }
+
+    IVState = await inputValve.changeStatus(vesselID, newState)
+
     console.log('IV AFTER:' + IVState)
+    console.log(IVState)
 });
 
 
@@ -47,14 +62,20 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
 document.getElementById('outputValveControl').addEventListener('click', async function(){
     console.log("OV Vessel ID:" + outputValve.vesselID)
     let OVState = await outputValve.getStatus(vesselID)
+    let newState;
     console.log('OV BEFORE:' + OVState)
-    if(OVState = 'open'){
-        await outputValve.changeStatus(vesselID, 'closed')
-    }else{
-        await outputValve.changeStatus(vesselID, 'open')
+    console.log(OVState)
+    if(OVState == 'closed'){
+        newState = 'open'
         // End timer here
         // End Vessel stats here due to purge.
         vesselStatsUpdate = false;
+    }else{
+        newState = 'closed'
     }
+
+    OVState = await outputValve.changeStatus(vesselID, newState)
+
     console.log('OV AFTER:' + OVState)
+    console.log(OVState)
 });

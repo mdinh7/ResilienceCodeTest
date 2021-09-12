@@ -29,6 +29,9 @@ class OutputValve{
     
         // function to change state of output valve
         async changeStatus(vesselID, updatedState){
+            let newData = {'state': updatedState}
+            console.log(newData)
+            let newState;
             const testHeaders = new Headers();
             testHeaders.append('Content-Type', 'application/json');
             testHeaders.append('Accept', 'application/json');
@@ -38,18 +41,18 @@ class OutputValve{
                 headers: testHeaders,
                 mode: 'cors',
                 cache: 'default',
-                body: JSON.stringify({'state': updatedState})
+                body: JSON.stringify(newData)
             });
     
             await fetch(vesselOVPutRequest)
             .then(response => {
-                if(response.ok){
-                    return response
-                }else{
-                    console.log('ERROR IV PUT REQUEST')
-                }
+                return response.json()
+            }) .then(data => {
+                newState = data.state
             })
-        }
+
+            return newState
+        }   
 }
 
 export default OutputValve
