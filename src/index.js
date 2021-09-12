@@ -1,6 +1,8 @@
+import "./vesselControl.css"
 import InputValve from './inputValve.js';
 import OutputValve from './outputValve.js';
 import Vessel from './vessel.js'
+
 
 let inputValve;
 let outputValve;
@@ -63,7 +65,7 @@ async function updateCheck(){
 }
 
 // Initiate vessel/bioreactor and valves
-document.getElementById('getID').addEventListener('click', async function(){
+document.getElementById('startVessel').addEventListener('click', async function(){
     vesselID = await vessel.getVessel()
     inputValve = new InputValve(vesselID)
     outputValve = new OutputValve(vesselID)
