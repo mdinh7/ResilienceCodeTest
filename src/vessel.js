@@ -62,10 +62,40 @@ class Vessel{
 
     // validate batch success
     validate(data){
-        //Over 72%
-        //Pressure is equal to or greater than 200kPa
-        //Temperature is over 81 degrees C
-        //Returns what passed and what failed, as well as overall pass/fail
+        let validObject = {"valid": "", "pressure_pass": "", "temperature_pass": "", "fill_percent_pass": "", "final_temp": "", "final_pressure": "", "final_fill_level": ""}
+
+        // Pressure Check
+        if(data.pressure < 200){
+            validObject.pressure_pass = "pass"
+            validObject.final_pressure = data.pressure
+        }else{
+            validObject.pressure_pass = "fail"
+            validObject.final_pressure = data.pressure
+        }
+        //Temp Check
+        if(data.temperature < 81){
+            validObject.temperature_pass = "pass"
+            validObject.temperature = data.temperature
+        }else{
+            validObject.temperature_pass = "fail"
+            validObject.temperature = data.temperature
+        }
+        //Fill % Check
+        if(data.fill_percent < 72){
+            validObject.fill_percent_pass = "pass"
+            validObject.final_fill_level = data.fill_percent_pass
+        }else{
+            validObject.fill_percent_pass = "fail"
+            validObject.final_fill_level = data.fill_percent_pass
+        }
+
+        if(data.pressure < 200 && data.temperature < 81 && data.fill_percent < 72){
+            validObject.valid = "pass"
+        }else{
+            validObject.valid = "fail"
+        }
+
+        return validObject;
     }
 
     // batch record
@@ -73,6 +103,8 @@ class Vessel{
         //If vesselValidate passsed
         //Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
         //Takes in data, calculates total time, then shows and updates final UI
+        document.getElementById('vesselStatisticsTable').style.display = 'none'
+        document.getElementById('batchRecordsTable').style.display = 'block'
     }
 
 }

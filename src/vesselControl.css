@@ -11,6 +11,7 @@ body{
   }
 
   #batchRecordsTable{
+    display: none;
     border: 2px solid black;
     width: 50%;
     margin-left:auto; 
@@ -23,4 +24,12 @@ body{
   }
   td {
       border: 1px solid black;
+  }
+
+  #inputValveControl{
+    display: none;
+  }
+
+  #outputValveControl{
+    display: none;
   }

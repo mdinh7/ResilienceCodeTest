@@ -10,6 +10,8 @@ let vesselID;
 let startTime;
 let endTime;
 let vesselStats = {"fill_level": "", "temp_low": "", "temp_high": "", "ph_low": "", "ph_high": "", "pressure_low": "", "pressure_high": "", "time_elapsed": "" };
+let IVState;
+let OVState;
 let vesselValidation;
 let vesselStatsUpdate = false;
 let vessel = new Vessel
@@ -81,6 +83,10 @@ document.getElementById('startVessel').addEventListener('click', async function(
     vesselStats.pressure_high = initialStats.pressure
     //Initiate Vessel Stats Interval Here
     updateCheck()
+    document.getElementById('startVessel').style.display = 'none'
+    document.getElementById('startVessel').disabled = 'true'
+    document.getElementById('inputValveControl').style.display = 'block'
+    document.getElementById('outputValveControl').style.display = 'block'
 });
 
 
@@ -88,9 +94,9 @@ document.getElementById('startVessel').addEventListener('click', async function(
 
 //Input Valve Control
 document.getElementById('inputValveControl').addEventListener('click', async function(){
-    let IVState = await inputValve.getStatus(vesselID)
+    IVState = await inputValve.getStatus(vesselID)
     let newState;
-    if(IVState == 'closed'){
+    if(IVState == 'closed' && OVState !== 'open'){
         newState = 'open'
         //Initiate timer here
         startTime = new Date()
@@ -106,9 +112,9 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
 
 //Output Valve Control
 document.getElementById('outputValveControl').addEventListener('click', async function(){
-    let OVState = await outputValve.getStatus(vesselID)
+    OVState = await outputValve.getStatus(vesselID)
     let newState;
-    if(OVState == 'closed'){
+    if(OVState == 'closed' && IVState !== 'open'){
         newState = 'open'
         // End timer here
         endTime = new Date()

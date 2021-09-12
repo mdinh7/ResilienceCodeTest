@@ -7,8 +7,8 @@
     <div>
       <h1>Vessel Control</h1>
       <button id='startVessel' type="button">Initiate Bioreactor</button>
-      <button id='inputValveControl' type="button">Input Valve Interact</button>
-      <button id='outputValveControl' type="button">Output Vave Interact</button>
+      <button id='inputValveControl' class='valveControl' type="button">Input Valve Interact</button>
+      <button id='outputValveControl' class='valveControl' type="button">Output Vave Interact</button>
       <table id='vesselStatisticsTable'>
         <tr>
           <th>Fill Percent</th>
@@ -37,6 +37,8 @@
         <tr></tr>
       </table>
     </div>
+    <div id="warningDiv"></div>
+    <div id="nextStep"></div>
   </body>
   <script src="./bundle.js"></script>
 </html>
