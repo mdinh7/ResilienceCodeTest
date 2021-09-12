@@ -72,6 +72,7 @@ class Vessel{
     batchRecord(data, validation, timeSet){
         //If vesselValidate passsed
         //Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
+        //Takes in data, calculates total time, then shows and updates final UI
     }
 
 }

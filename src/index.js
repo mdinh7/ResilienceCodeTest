@@ -17,7 +17,7 @@ let vessel = new Vessel
 async function vesselStatsProcess(){
     let tempStats = await vessel.getVesselStats(vesselID)
     vessel.updateStatsUI(tempStats)
-    vessel.statsWarning(tempstats)
+    vessel.statsWarning(tempStats)
     // Initiate purge if fill level is over 72%, temp is over 81 degrees, or pressure is greater than or equal to 200
     if(tempStats.fill_percent > 72 || tempStats.temperature > 81 || tempStats.pressure >= 200){
         await outputValve.changeStatus(vesselID, 'open');
@@ -42,6 +42,8 @@ async function vesselStatsProcess(){
             vesselStats.pressure_high = tempStats.pressure
         }
     }
+
+    console.log(vesselStats)
 }
 
 //similar bundle for final processes
@@ -104,7 +106,6 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
 document.getElementById('outputValveControl').addEventListener('click', async function(){
     let OVState = await outputValve.getStatus(vesselID)
     let newState;
-    console.log('OV BEFORE:' + OVState)
     if(OVState == 'closed'){
         newState = 'open'
         // End timer here
