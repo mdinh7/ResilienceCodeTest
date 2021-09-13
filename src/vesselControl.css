@@ -1,19 +1,48 @@
 body{
-    font-family: Courier New, Courier, monospace;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h1{
+      text-align: center;
+  }
+
+  .button1 {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px 20px;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    width: 10%;
+  }
+
+  .button2 {
+    background-color: #03befc;
+    color: white;
+    padding: 10px 20px;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    width: 10%;
   }
   
   #vesselStatisticsTable {
-      border: 2px solid black;
-      width: 50%;
+      border: 1px solid black;
+      width: 70%;
       margin-left:auto; 
       margin-right:auto;
       text-align: center;
+      margin-top: 30px;
   }
 
   #batchRecordsTable{
     display: none;
-    border: 2px solid black;
-    width: 50%;
+    border: 1px solid black;
+    width: 70%;
     margin-left:auto; 
     margin-right:auto;
     text-align: center;
@@ -32,6 +61,10 @@ body{
 
   #outputValveControl{
     display: none;
+  }
+
+  #stepGuide{
+      margin: auto;
   }
 
   #nextVessel{

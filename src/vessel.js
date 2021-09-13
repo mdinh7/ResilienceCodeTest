@@ -58,9 +58,17 @@ class Vessel{
 
     // stats warning
     statsWarning(data){
-        //Within 10% of fill level warning
-        //Within 20kPa of pressure
-        //Within 10 degrees C
+        if(data.fill_percent >= 60){
+            //fill percent warning
+        }
+
+        if(data.temperature >= 65){
+            //temp warning
+        }
+
+        if(data.pressure >= 185){
+            // pressure warning
+        }
     }
 
     // validate batch success
@@ -115,7 +123,7 @@ class Vessel{
         validCell.append(validCellText)
 
         let fillCell = newRow.insertCell(1)
-        let fillCellText = document.createTextNode(validation.final_fill_level)
+        let fillCellText = document.createTextNode(validation.final_fill_level + " %")
         fillCell.append(fillCellText)
 
         let phLowCell = newRow.insertCell(2)
@@ -159,11 +167,13 @@ class Vessel{
 
         let timeCell = newRow.insertCell(11)
         let elapsedTime = Math.abs(timeSet.start_time - timeSet.end_time);
-        let timeCellText = document.createTextNode(elapsedTime + "seconds")
+        let timeCellText = document.createTextNode(elapsedTime + " ms")
         timeCell.append(timeCellText)
 
 
         document.getElementById('vesselStatisticsTable').style.display = 'none'
+        document.getElementById('inputValveControl').style.display = 'none'
+        document.getElementById('outputValveControl').style.display = 'none'
         document.getElementById('batchRecordsTable').style.display = 'block'
         document.getElementById('nextVessel').style.display = 'block'
     }

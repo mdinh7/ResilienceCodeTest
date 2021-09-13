@@ -6,24 +6,29 @@
   <body>
     <div>
       <h1>Vessel Control</h1>
-      <button id='startVessel' type="button">Initiate Bioreactor</button>
-      <button id='inputValveControl' class='valveControl' type="button">Input Valve Interact</button>
-      <button id='outputValveControl' class='valveControl' type="button">Output Vave Interact</button>
+      <a id='startVessel' class='button1'>Initiate Bioreactor/Vessel </a>
+      <a id='inputValveControl' class='valveControl button1'>Input Valve Interact</a>
+      <a id='outputValveControl' class='valveControl button2'>Output Vave Interact</a>
       <table id='vesselStatisticsTable'>
+      <thead>
         <tr>
           <th>Fill Percent</th>
           <th>pH</th>
           <th>Temperature</th>
           <th>Pressure</th>
         </tr>
+      </thead>
+      <tbody>
         <tr>
           <th id='fillPercentUpdate'></th>
           <th id='pHUpdate'></th>
           <th id='tempUpdate' ></th>
           <th id='pressureUpdate'></th>
         </tr>
+      </tbody>
       </table>
       <table id='batchRecordsTable'>
+      <thead>
         <tr>
           <th>Pass/Fail</th>
           <th>Fill Percent</th>
@@ -38,12 +43,21 @@
           <th>Pressure - Average</th>
           <th>Total Time</th>
         </tr>
-        <tr></tr>
+      </thead>
       </table>
     </div>
     <div id="warningDiv"></div>
-    <div id="nextStep"></div>
-    <button id='nextVessel' type="button"> Next </button>
+    <div id="stepGuide">
+      <h3>Steps:</h3>
+      <ol>
+          <li> Initiate the Bioreactor or Vessel. </li>
+          <li> Open the input valve to allow material in. </li>
+          <li> Let the vessel fill to (70 +/-2)% full. </li>
+          <li> If pressure of the vessel reaches 200kPa or greater, you should immediately abort the process by opening the output valve.</li>
+          <li> When the temperature of the container reaches (80 +/-1) degrees Celsius, open the output valve to let the material out. </li>
+      </ol>
+    </div>
+    <a id='nextVessel' class='button1'> Next Vessel </a>
   </body>
   <script src="./bundle.js"></script>
 </html>
