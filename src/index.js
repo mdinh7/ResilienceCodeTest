@@ -9,7 +9,7 @@ let outputValve;
 let vesselID;
 let startTime;
 let endTime;
-let vesselStats = {"fill_level": "", "temp_low": "", "temp_high": "", "ph_low": "", "ph_high": "", "pressure_low": "", "pressure_high": "", "time_elapsed": "" };
+let vesselStats = {"vessel_id": "", "fill_level": "", "temp_low": "", "temp_high": "", "ph_low": "", "ph_high": "", "pressure_low": "", "pressure_high": "", "time_elapsed": "" };
 let IVState;
 let OVState;
 let vesselValidation;
@@ -51,12 +51,12 @@ async function vesselStatsProcess(){
         }
     }
 
-    console.log(vesselStats)
 }
 
 //similar bundle for final processes
 async function vesselFinalProcess(){
     let finalStats = await vessel.getVesselStats(vesselID)
+    vesselStats.fill_level = finalStats.fill_percent
     vesselValidation = vessel.validate(finalStats)
     vessel.batchRecord(vesselStats, vesselValidation, {'start_time': startTime, 'end_time': endTime})
 }
@@ -64,7 +64,7 @@ async function vesselFinalProcess(){
 async function updateCheck(){
     if(vesselStatsUpdate === true){
         vesselStatsProcess()
-        window.setTimeout(updateCheck, 100)
+        window.setTimeout(updateCheck, 500)
     }else{
         vesselFinalProcess()
     }
@@ -79,6 +79,8 @@ document.getElementById('startVessel').addEventListener('click', async function(
     await outputValve.changeStatus(vesselID, 'closed')
     vesselStatsUpdate = true;
     let initialStats = await vessel.getVesselStats(vesselID)
+    vesselStats.vessel_id = vesselID
+    vesselStats.fill_level = initialStats.fill_percent
     vesselStats.temp_low = initialStats.temperature
     vesselStats.temp_high = initialStats.temperature
     vesselStats.ph_low = initialStats.pH
@@ -138,6 +140,20 @@ document.getElementById('outputValveControl').addEventListener('click', async fu
 //Next Button
 
 document.getElementById('nextVessel').addEventListener('click', function(){
-    document.getElementById('nextVessel').style.display = 'block'
+    inputValve= undefined;
+    outputValve= undefined;
+    vesselID = undefined;
+    startTime = undefined;
+    endTime = undefined;
+    vesselStats = {"vessel_id": "", "fill_level": "", "temp_low": "", "temp_high": "", "ph_low": "", "ph_high": "", "pressure_low": "", "pressure_high": "", "time_elapsed": "" };
+    IVState = undefined;
+    OVState = undefined;
+    vesselValidation = undefined;
+    vesselStatsUpdate = false;
+    vessel = new Vessel
+    document.getElementById('nextVessel').style.display = 'none'
+    document.getElementById('vesselStatisticsTable').style.display = 'table'
+    document.getElementById('startVessel').style.display = 'block'
+    document.getElementById('batchRecordsTable').style.display = 'none'
 
 });
