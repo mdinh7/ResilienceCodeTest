@@ -54,7 +54,7 @@ async function vesselStatsProcess(){
 async function vesselFinalProcess(){
     let finalStats = await vessel.getVesselStats(vesselID)
     vesselValidation = vessel.validate(finalStats)
-    vessel.batchRecord(finalStats, vesselValidation, {'start_time': startTime, 'end_time': endTime})
+    vessel.batchRecord(vesselStats, vesselValidation, {'start_time': startTime, 'end_time': endTime})
 }
 
 async function updateCheck(){
