@@ -50,7 +50,10 @@ class Vessel{
 
     // update UI table with most up to date vessel data
     updateStatsUI(data){
-
+        document.getElementById('fillPercentUpdate').innerHTML = data.fill_percent
+        document.getElementById('pHUpdate').innerHTML = data.pH
+        document.getElementById('tempUpdate').innerHTML = data.temperature
+        document.getElementById('pressureUpdate').innerHTML = data.pressure
     }
 
     // stats warning
@@ -103,6 +106,60 @@ class Vessel{
         //If vesselValidate passsed
         //Statistics: Fill level reached, temp range(lowest, highest, avg), pH range(lowest, highest, avg), pressure range(lowest,highest, avg), total time
         //Takes in data, calculates total time, then shows and updates final UI
+        let newRow = document.getElementById('batchRecordsTable').insertRow()
+        let validCell = newRow.insertCell(0)
+        let validCellText = document.createTextNode(validation.valid)
+        validCell.append(validCellText)
+
+        let fillCell = newRow.insertCell(1)
+        let fillCellText = document.createTextNode(validation.final_fill_level)
+        fillCell.append(validCellText)
+
+        let phLowCell = newRow.insertCell(2)
+        let phLowCellText = document.createTextNode(data.ph_low)
+        phLowCell.append(phLowCellText)
+
+        let phHighCell = newRow.insertCell(3)
+        let phHighCellText = document.createTextNode(data.ph_high)
+        phHighCell.append(phHighCellText)
+
+        let phAvgCell = newRow.insertCell(4)
+        let phAvg = (data.ph_high + data.ph_low)/2
+        let phAvgCellText = document.createTextNode(phAvg)
+        phAvgCell.append(phAvgCellText)
+
+        let tempLowCell = newRow.insertCell(5)
+        let tempLowCellText = document.createTextNode(data.temp_low)
+        tempLowCell.append(tempLowCellText)
+
+        let tempHighCell = newRow.insertCell(6)
+        let tempHighCellText = document.createTextNode(data.temp_high)
+        tempHighCell.append(tempHighCellText)
+
+        let tempAvgCell = newRow.insertCell(7)
+        let tempAvg = (data.temp_high + data.temp_low)/2
+        let tempAvgCellText = document.createTextNode(tempAvg)
+        tempAvgCell.append(tempAvgCellText)
+
+        let pressureLowCell = newRow.insertCell(8)
+        let pressureLowCellText = document.createTextNode(data.pressure_low)
+        pressureLowCell.append(pressureLowCellText)
+
+        let presureHighCell = newRow.insertCell(9)
+        let presureHighCellText = document.createTextNode(data.pressure_high)
+        presureHighCell.append(presureHighCellText)
+
+        let pressureAvgCell = newRow.insertCell(10)
+        let pressureAvg = (data.pressure_high + data.pressure_low)/2
+        let pressureAvgCellText = document.createTextNode(pressureAvg)
+        pressureAvgCell.append(pressureAvgCellText)
+
+        let timeCell = newRow.insertCell(11)
+        let elapsedTime = Math.abs(timeSet.start_time - timeSet.end_time);
+        let timeCellText = document.createTextNode(elapsedTime)
+        timeCell.append(timeCellText)
+
+
         document.getElementById('vesselStatisticsTable').style.display = 'none'
         document.getElementById('batchRecordsTable').style.display = 'block'
     }
