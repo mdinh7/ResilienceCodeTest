@@ -125,3 +125,10 @@ document.getElementById('outputValveControl').addEventListener('click', async fu
     }
     OVState = await outputValve.changeStatus(vesselID, newState)
 });
+
+//Next Button
+
+document.getElementById('nextVessel').addEventListener('click', function(){
+    document.getElementById('nextVessel').style.display = 'block'
+
+});

@@ -33,3 +33,7 @@ body{
   #outputValveControl{
     display: none;
   }
+
+  #nextVessel{
+      display: none;
+  }

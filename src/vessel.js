@@ -165,6 +165,7 @@ class Vessel{
 
         document.getElementById('vesselStatisticsTable').style.display = 'none'
         document.getElementById('batchRecordsTable').style.display = 'block'
+        document.getElementById('nextVessel').style.display = 'block'
     }
 
 }
