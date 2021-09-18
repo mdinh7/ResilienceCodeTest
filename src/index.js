@@ -110,7 +110,6 @@ document.getElementById('inputValveControl').addEventListener('click', async fun
         newState = 'closed'
         // End Vessel stats here due to process end
         endTime = new Date()
-        vesselStatsUpdate = false;
     }
     IVState = await inputValve.changeStatus(vesselID, newState)
 });

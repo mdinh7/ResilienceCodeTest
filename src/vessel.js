@@ -107,7 +107,7 @@ class Vessel{
             validObject.final_pressure = data.pressure
         }
         //Temp Check
-        if(data.temperature >= 81 && data.temperature >= 79){
+        if(data.temperature <= 81 && data.temperature >= 79){
             validObject.temperature_pass = "pass"
             validObject.temperature = data.final_temp
         }else{
